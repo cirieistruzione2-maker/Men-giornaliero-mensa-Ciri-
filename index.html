@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menù del Giorno - Comune di Ciriè</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .date-selector {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .date-selector label {
+            display: block;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .date-selector input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .date-selector input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .menu-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .menu-type {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .menu-type.speciale {
+            color: #e74c3c;
+            font-size: 1.5em;
+        }
+
+        .menu-card.speciale {
+            border: 3px solid #e74c3c;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+        }
+
+        .menu-card.speciale .menu-header {
+            border-bottom: 3px solid #e74c3c;
+        }
+
+        .menu-card.speciale .menu-item:before {
+            content: "⭐";
+        }
+
+        .menu-info {
+            text-align: right;
+        }
+
+        .day-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .week-number {
+            font-size: 1em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .menu-content {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #444;
+            white-space: pre-line;
+        }
+
+        .menu-item {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .menu-item:before {
+            content: "🍽️";
+            position: absolute;
+            left: 0;
+        }
+
+        .alert {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #856404;
+            font-size: 1.1em;
+        }
+
+        .alert.info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+            color: #0c5460;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 0.9em;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .menu-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .menu-info {
+                text-align: left;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍽️ Menù del Giorno</h1>
+            <p>Mensa Scolastica - Comune di Ciriè</p>
+        </div>
+
+        <div class="content">
+            <div class="date-selector">
+                <label for="menuDate">Seleziona la data:</label>
+                <input type="date" id="menuDate" min="2026-02-05" max="2026-06-30">
+            </div>
+
+            <div id="menuDisplay"></div>
+        </div>
+
+        <div class="footer">
+            © 2026 Comune di Ciriè - Servizio Mensa Scolastica
+        </div>
+    </div>
+
+    <script>
+        // DATABASE DEI MENÙ
+        const menuInvernale = {
+            "PRIMA": {
+                "Lunedì": "VELLUTATA DI ZUCCA CON CROSTINI\nSOVRACOSCIA DI POLLO ARROSTO\nPATATE LESSE ALL'OLIO PROFUMATO\nFRUTTA/PANE",
+                "Martedì": "RISOTTO ALLA MILANESE\nCRESCENZA\nFAGIOLINI AROMATIZZATI CALDI\nFRUTTA/PANE",
+                "Mercoledì": "PASTA IN BIANCO\nPASTA AGLIO E OLIO PER MEDIE\nARROSTO DI LONZA\nINSALATA VERDE\nYOGURT ALLA FRUTTA/PANE INTEGRALE",
+                "Giovedì": "PASTA INTEGRALE AL POMODORO\nPLATESSA AL FORNO\nCAROTE AL FORNO\nMACEDONIA DI FRUTTA/PANE",
+                "Venerdì": "PASTA CON PESTO DI BROCCOLI\nFRITTATA DI SPINACI\nINSALATA DI VERZA\nFRUTTA/PANE"
+            },
+            "SECONDA": {
+                "Lunedì": "GNOCCHI AL POMODORO\nPASTINA IN BRODO (MATERNE)\nMOZZARELLA\nINSALATA MISTA (VERDE E CAROTE)\nFRUTTA/PANE",
+                "Martedì": "PASSATO DI CECI E ROSMARINO CON PASTA\nSALSICCIA\nPUREA\nFRUTTA/PANE",
+                "Mercoledì": "PIATTO UNICO: POLENTA E\nBOCCONCINI DI TACCHINO IN UMIDO\nINSALATA DI FINOCCHI\nFRUTTA/PANE INTEGRALE",
+                "Giovedì": "RISOTTO AL POMODORO\nFRITTATA ALLA PARMIGIANA\nSPINACI AL PARMIGIANO\nBUDINO AL CIOCCOLATO/PANE",
+                "Venerdì": "PASTINA ALL'UOVO IN BRODO CON VERDURE PASSATE\nHALIBUT AL FORNO\nPISELLI\nFRUTTA/PANE"
+            },
+            "TERZA": {
+                "Lunedì": "PIZZA AL POMODORO\nMOZZARELLA\nSPINACI SALTATI\nFRUTTA/PANE",
+                "Martedì": "VELLUTATA DI PORRI E PATATE + CROSTINI\nPOLPETTE DI BOVINO IN UMIDO\nINSALATA VERDE\nFRUTTA/PANE",
+                "Mercoledì": "PASTA AL POMODORO\nPLATESSA DORATA\nTRIS DI VERDURE (CAVOLFIORI/BROCCOLI/CAROTE)\nFRUTTA/PANE INTEGRALE",
+                "Giovedì": "RAVIOLI RICOTTA E SPINACI\nSCALOPPINE DI POLLO AL FORNO\nFAGIOLINI ALL'OLIO\nTORCETTI/PANE",
+                "Venerdì": "PASSATO DI LEGUMI CON RISO\nFRITTATA ALLA PARMIGIANA\nINSALATA VERDE E RADICCHIO\nFRUTTA/PANE"
+            },
+            "QUARTA": {
+                "Lunedì": "PASTA AL BURRO E SALVIA\nTOMA DI LANZO\nCAROTE AL FORNO\nFRUTTA/PANE",
+                "Martedì": "PASSATO DI VERDURA CON ORZO\nSOVRACOSCIA DI POLLO AL FORNO\nPUREA DI PATATE\nFRUTTA/PANE",
+                "Mercoledì": "TAGLIATELLE AL POMODORO\nSVIZZERINA DI VITELLO AGLI AROMI\nINSALATA DI CAVOLO VERZA\nFRUTTA/PANE INTEGRALE",
+                "Giovedì": "RISOTTO ALLA PARMIGIANA\nFRITTATA DI CAVOLFIORE\nBIETE LESSE AL LIMONE\nBUDINO CRÈME CARAMEL/PANE",
+                "Venerdì": "PASTA OLIO E PANGRATTATO\nBASTONCINI DI PESCE AL FORNO\nBROCCOLI SALTATI\nFRUTTA/PANE"
+            },
+            "QUINTA": {
+                "Lunedì": "PASTA AL POMODORO E RICOTTA\nSALSICCIA AL FORNO\nFAGIOLINI SALTATI\nFRUTTA/PANE",
+                "Martedì": "CREMA DI PISELLI CON CROSTINI\nSPEZZATINO DI TACCHINO\nCAROTE AL FORNO\nFRUTTA/PANE",
+                "Mercoledì": "PASTA PASTICCIATA\n½ STRACCHINO\nSPINACI AL LIMONE\nYOGURT ALLA FRUTTA/PANE INTEGRALE",
+                "Giovedì": "VELLUTATA DI CAROTE E PATATE CON FARRO\nHALIBUT AL FORNO\nPATATE ALL'OLIO PREZZEMOLATE\nMACEDONIA DI FRUTTA/PANE",
+                "Venerdì": "RISOTTO AL RADICCHIO\nUOVO SODO\nINSALATA DI FINOCCHI\nFRUTTA/PANE"
+            },
+            "SESTA": {
+                "Lunedì": "GNOCCHI AL POMODORO\nSOVRACOSCE DI POLLO AL FORNO\nMACEDONIA DI VERDURA\nFRUTTA/PANE",
+                "Martedì": "PASSATO DI VERDURA CON RISO\nHAMBURGER DI BOVINO\nINSALATA DI FAGIOLINI\nFRUTTA/PANE",
+                "Mercoledì": "ORECCHIETTE AI BROCCOLI\nGATEAU DI PATATE E FONTAL\nCAROTE SALTATE\nFRUTTA/PANE INTEGRALE",
+                "Giovedì": "RISOTTO ALLA ZUCCA\nBRA/RASCHERA\nTRIS DI VERDURE (CAVOLFIORI/BROCCOLI/CAROTE)\nPASTA DI MELIGA/PANE",
+                "Venerdì": "PASTA E FAGIOLI\n(PASSATO PER MATERNE)\nPLATESSA AL FORNO\nINSALATA VERDE\nFRUTTA/PANE"
+            },
+            "SETTIMA": {
+                "Lunedì": "PIZZA AL POMODORO\nMOZZARELLA\nFINOCCHI AL FORNO\nFRUTTA/PANE",
+                "Martedì": "TORTELLINI IN BRODO VEGETALE\nMILANESE DI TACCHINO\nPISELLINI E CAROTE AROMATICHE\nFRUTTA/PANE",
+                "Mercoledì": "RISO AL SUGO DI SALSICCIA\nFRITTATA DI ERBETTE\nINSALATA DI CAVOLO VERZA\nYOGURT ALLA FRUTTA/PANE INTEGRALE",
+                "Giovedì": "PASTA INTEGRALE AL POMODORO E OLIVE\nPOLPETTINE DI BOVINO\nINSALATA VERDE\nFRUTTA/PANE",
+                "Venerdì": "PASSATO DI CECI CON CROSTINI\nBASTONCINI DI PESCE\nPUREA DI PATATE\nFRUTTA/PANE"
+            },
+            "OTTAVA": {
+                "Lunedì": "PASTA PESTO E POMODORO\nROBIOLA\nCAROTE BRASATE\nFRUTTA/PANE",
+                "Martedì": "CREMA DI ZUCCA E CAROTE CON RISO\nFESA DI TACCHINO AL FORNO\nPATATE ARROSTO\nFRUTTA/PANE",
+                "Mercoledì": "RISOTTO ALLA MILANESE\nFLAN DI VERDURE E FORMAGGIO\nINSALATA DI FINOCCHI\nBUDINO ALLA VANIGLIA/PANE INTEGRALE",
+                "Giovedì": "TAGLIATELLE AL POMODORO\nMERLUZZO INFARINATO AL FORNO\nTRIS DI VERDURE (CAVOLFIORI/BROCCOLI/CAROTE)\nFRUTTA/PANE",
+                "Venerdì": "PASTINA IN BRODO VEGETALE\nCASTELLANA AL FORNO\nSPINACI SALTATI\nFRUTTA/PANE"
+            }
+        };
+
+        const menuEstivo = {
+            "PRIMA": {
+                "Lunedì": "PASTA AL PESTO\nPETTO DI POLLO ALLA MILANESE\nINSALATA VERDE E CAROTE\nFRUTTA/PANE",
+                "Martedì": "PASSATO DI VERDURA CON RISO\nARROSTO DI BOVINO\nPATATE ALL'ORIGANO\nFRUTTA/PANE",
+                "Mercoledì": "PASTA INTEGRALE AL POMODORO E RICOTTA\nHALIBUT IN UMIDO\nZUCCHINE SALTATE\nYOGURT ALLA FRUTTA/PANE INTEGRALE",
+                "Giovedì": "RISO E PISELLI\nINSALATA DI RISO (MEDIE)\nTORTINO DI VERDURE\nFAGIOLINI ALL'OLIO\nFRUTTA/PANE",
+                "Venerdì": "PASTA AGLIO E OLIO\nMOZZARELLA\nINSALATA DI POMODORI\nFRUTTA/PANE"
+            },
+            "SECONDA": {
+                "Lunedì": "TAGLIATELLE AL POMODORO E BASILICO\nSALSICCIA\nPROSCIUTTO COTTO (MATERNE)\nINSALATA DI POMODORI\nTORCETTI O PASTA DI MELIGA/PANE",
+                "Martedì": "PASTA AL SUGO DI ZUCCHINE\nTOMINO/ROBIOLA\nINSALATA DI CAROTE JULIENNE\nFRUTTA/PANE",
+                "Mercoledì": "PASSATO DI VERDURA CON CROSTINI\nSCALOPPINE DI TACCHINO ALLA PIZZAIOLA\nPATATE AL FORNO\nFRUTTA/PANE INTEGRALE",
+                "Giovedì": "RISOTTO ALLA PARMIGIANA\nBASTONCINI DI PESCE\nZUCCHINE TRIFOLATE\nFRUTTA/PANE",
+                "Venerdì": "PASTA AGLIO/OLIO E PANGRATTATO\nGATEAU DI VERDURE E FONTAL\nINSALATA VERDE\nFRUTTA/PANE"
+            },
+            "TERZA": {
+                "Lunedì": "RAVIOLI DI MAGRO BURRO E SALVIA\nTOMA DI LANZO\nFAGIOLINI ALL'OLIO\nYOGURT ALLA FRUTTA/PANE",
+                "Martedì": "VELLUTATA DI ZUCCHINE CON PASTA\nPASTINA IN BRODO (MATERNE)\nFRITTATA DI SPINACI\nPATATE ARROSTO\nFRUTTA/PANE",
+                "Mercoledì": "PASTA AL SUGO E TONNO\nPASTA AL SUGO (MATERNE)\nARROSTO DI BOVINO\nCAROTE AL FORNO\nFRUTTA/PANE INTEGRALE",
+                "Giovedì": "RISOTTO ALLO ZAFFERANO\nSPEZZATINO DI TACCHINO\nMACEDONIA DI VERDURE\nFRUTTA/PANE",
+                "Venerdì": "GNOCCHI AL PESTO\nPLATESSA AL FORNO\nINSALATA DI FINOCCHI\nMACEDONIA DI FRUTTA/PANE"
+            },
+            "QUARTA": {
+                "Lunedì": "PIZZA AL POMODORO\nMOZZARELLA\nPOMODORI CON ORIGANO\nFRUTTA/PANE",
+                "Martedì": "PASSATO DI VERDURE CON PASTINA\nCASTELLANA\nINSALATA DI PATATE E PREZZEMOLO\nFRUTTA/PANE",
+                "Mercoledì": "PASTA ALL'OLIO E PARMIGIANO\nHALIBUT AL FORNO\nFAGIOLINI SALTATI\nFRUTTA/PANE INTEGRALE",
+                "Giovedì": "RISOTTO AL POMODORO\nSOVRACOSCIA DI POLLO ARROSTO\nINSALATA VERDE\nBUDINO ALLA VANIGLIA/PANE",
+                "Venerdì": "INSALATA DI RISO\nUOVO SODO\nINSALATA MISTA CON CAROTE\nFRUTTA/PANE"
+            }
+        };
+
+        const menuSpeciali = [
+            { 
+                data: "2026-02-11", 
+                menu: "NORD AFRICA\nCOUS COUS CON VERDURE\nHAMBURGER\nPATATE AL FORNO\nBUGIE", 
+                tipo: "Speciale", 
+                giorno: "Mercoledì" 
+            },
+            { 
+                data: "2026-02-25", 
+                menu: "CAMPANIA\nGNOCCHI ALLA SORRENTINA\nSALSICCIA E FRIARIELLI\nDOLCE CON RICOTTA", 
+                tipo: "Speciale", 
+                giorno: "Mercoledì" 
+            },
+            { 
+                data: "2026-03-11", 
+                menu: "SICILIA\nPASTA ALLA NORMA AL FORNO\nMERLUZZO GRATINATO ALLE ERBE\nMACEDONIA DI VERDURE\nBISCOTTO MANDORLE", 
+                tipo: "Speciale", 
+                giorno: "Mercoledì" 
+            },
+            { 
+                data: "2026-03-25", 
+                menu: "PUGLIA\nORECCHIETTE E CIME DI RAPA\nRICOTTA\nPATATE PREZZEMOLATE\nDOLCETTI DI MANDORLE", 
+                tipo: "Speciale", 
+                giorno: "Mercoledì" 
+            },
+            { 
+                data: "2026-04-01", 
+                menu: "PASQUA\nTORTA PASQUALINA\nPROSCIUTTO CRUDO\nINSALATA\nCOLOMBA", 
+                tipo: "Speciale", 
+                giorno: "Mercoledì" 
+            },
+            { 
+                data: "2026-04-16", 
+                menu: "CINESE\nRISO ALLA CANTONESE\nPOLLO ALLE MANDORLE\nCAROTE TRIFOLATE\nMUFFIN AL CIOCCOLATO", 
+                tipo: "Speciale", 
+                giorno: "Giovedì" 
+            },
+            { 
+                data: "2026-05-06", 
+                menu: "FRIULI\nRISOTTO AGLI ASPARAGI\nTORTINO PATATE E SPECK CON SALSA AL FORMAGGIO\nMACEDONIA DI FRUTTA", 
+                tipo: "Speciale", 
+                giorno: "Mercoledì" 
+            },
+            { 
+                data: "2026-05-20", 
+                menu: "LIGURIA\nTROFIE AL PESTO\nPOLPETTE CON CARNE VERDURA\nAMARETTI", 
+                tipo: "Speciale", 
+                giorno: "Mercoledì" 
+            },
+            { 
+                data: "2026-06-04", 
+                menu: "AMERICA\nPANINO HAMBURGER CON CARNE/ASIAGO\nINSALATA E MAIONESE\nPATATINE AL FORNO\nBROWNIES", 
+                tipo: "Speciale", 
+                giorno: "Giovedì" 
+            },
+            { 
+                data: "2026-06-17", 
+                menu: "VENETO\nRISOTTO CON SPECK RADICCHIO E FONDUTA DI ASIAGO\nFRITTATA DI ASPARAGI\nCHIACCHERE", 
+                tipo: "Speciale", 
+                giorno: "Mercoledì" 
+            }
+        ];
+
+        // Vacanze e festività dal calendario
+        const vacanzeFestivita = [
+            // Capodanno
+            "2026-01-01",
+            // Vacanze natalizie
+            "2026-01-02", "2026-01-03", "2026-01-05",
+            // Epifania
+            "2026-01-06",
+            // Vacanze carnevale
+            "2026-02-14", "2026-02-16", "2026-02-17",
+            // Vacanze pasquali
+            "2026-04-02", "2026-04-03", "2026-04-04",
+            // Santa Pasqua e Lunedì dell'Angelo
+            "2026-04-05", "2026-04-06",
+            // Vacanze pasquali
+            "2026-04-07",
+            // Festa della Liberazione
+            "2026-04-25",
+            // Ponte Festa del Lavoro
+            "2026-05-01", "2026-05-02",
+            // Festa della Repubblica
+            "2026-06-02"
+        ];
+
+        // Stato iniziale: 5 febbraio 2026, menù invernale, quinta settimana, giovedì
+        const statoIniziale = {
+            data: new Date("2026-02-05"),
+            settimana: "QUINTA",
+            giorno: "Giovedì",
+            tipo: "invernale"
+        };
+
+        // Nomi settimane
+        const settimaneInvernali = ["PRIMA", "SECONDA", "TERZA", "QUARTA", "QUINTA", "SESTA", "SETTIMA", "OTTAVA"];
+        const settimaneEstive = ["PRIMA", "SECONDA", "TERZA", "QUARTA"];
+        const giorniSettimana = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
+
+        function isWeekend(date) {
+            const day = date.getDay();
+            return day === 0 || day === 6;
+        }
+
+        function isVacanzaFestivita(dateStr) {
+            return vacanzeFestivita.includes(dateStr);
+        }
+
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function parseDate(dateStr) {
+            const parts = dateStr.split('-');
+            return new Date(parts[0], parts[1] - 1, parts[2]);
+        }
+
+        function advanceMenuDay(currentWeek, currentDayName, currentType) {
+            // Avanza al giorno successivo del menù (solo se è un giorno feriale di scuola)
+            const dayIndex = giorniSettimana.indexOf(currentDayName);
+            let nextDayIndex = dayIndex + 1;
+            
+            if (nextDayIndex > 5) { // Se supera venerdì
+                nextDayIndex = 1; // Torna a lunedì
+                // Avanza alla settimana successiva
+                const weeks = currentType === "invernale" ? settimaneInvernali : settimaneEstive;
+                const weekIndex = weeks.indexOf(currentWeek);
+                const nextWeekIndex = (weekIndex + 1) % weeks.length;
+                return {
+                    settimana: weeks[nextWeekIndex],
+                    giorno: giorniSettimana[nextDayIndex]
+                };
+            } else {
+                return {
+                    settimana: currentWeek,
+                    giorno: giorniSettimana[nextDayIndex]
+                };
+            }
+        }
+
+        function getMenuForDate(targetDateStr) {
+            const targetDate = parseDate(targetDateStr);
+            
+            // Controlla se è weekend
+            if (isWeekend(targetDate)) {
+                return {
+                    error: "weekend",
+                    message: "Il sabato e la domenica non sono previsti menù."
+                };
+            }
+
+            // Controlla se è una vacanza o festività
+            if (isVacanzaFestivita(targetDateStr)) {
+                return {
+                    error: "chiuso",
+                    message: "La mensa è chiusa per vacanze o festività."
+                };
+            }
+
+            // Verifica se c'è un menù speciale
+            const menuSpeciale = menuSpeciali.find(m => m.data === targetDateStr);
+            if (menuSpeciale) {
+                return {
+                    tipo: "Speciale",
+                    menu: menuSpeciale.menu,
+                    giorno: menuSpeciale.giorno,
+                    settimana: null
+                };
+            }
+
+            // Calcola il menù normale
+            let currentDate = new Date(statoIniziale.data);
+            let currentWeek = statoIniziale.settimana;
+            let currentDay = statoIniziale.giorno;
+            let currentType = statoIniziale.tipo;
+
+            // Se la data richiesta è quella iniziale
+            if (formatDate(targetDate) === formatDate(currentDate)) {
+                const menu = menuInvernale[currentWeek][currentDay];
+                return {
+                    tipo: "Invernale",
+                    menu: menu,
+                    giorno: currentDay,
+                    settimana: currentWeek
+                };
+            }
+
+            // Avanza giorno per giorno fino alla data target
+            while (formatDate(currentDate) !== targetDateStr) {
+                currentDate = new Date(currentDate);
+                currentDate.setDate(currentDate.getDate() + 1);
+
+                // Se è un giorno feriale (lunedì-venerdì), avanza il menù
+                // Il menù avanza anche durante vacanze/festività per mantenere la corrispondenza
+                if (!isWeekend(currentDate)) {
+                    const nextMenuInfo = advanceMenuDay(currentWeek, currentDay, currentType);
+                    currentWeek = nextMenuInfo.settimana;
+                    currentDay = nextMenuInfo.giorno;
+                }
+
+                // Verifica se è dopo le vacanze pasquali (passa a menù estivo)
+                if (formatDate(currentDate) === "2026-04-08") { // Primo giorno dopo vacanze pasquali
+                    currentType = "estivo";
+                    currentWeek = "PRIMA";
+                    currentDay = "Mercoledì";
+                }
+            }
+
+            // Restituisci il menù
+            const menuDb = currentType === "invernale" ? menuInvernale : menuEstivo;
+            const menu = menuDb[currentWeek] ? menuDb[currentWeek][currentDay] : null;
+
+            if (!menu) {
+                return {
+                    error: "not_found",
+                    message: "Menù non disponibile per questa data."
+                };
+            }
+
+            return {
+                tipo: currentType === "invernale" ? "Invernale" : "Estivo",
+                menu: menu,
+                giorno: currentDay,
+                settimana: currentWeek
+            };
+        }
+
+        function displayMenu(result) {
+            const display = document.getElementById('menuDisplay');
+
+            if (result.error) {
+                let message = result.message;
+                let alertClass = 'error';
+                
+                if (result.error === 'weekend') {
+                    alertClass = 'info';
+                } else if (result.error === 'chiuso') {
+                    alertClass = 'alert';
+                }
+
+                display.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
+                return;
+            }
+
+            const menuItems = result.menu.split('\n').map(item => 
+                `<div class="menu-item">${item}</div>`
+            ).join('');
+
+            const weekInfo = result.settimana ? 
+                `<div class="week-number">Settimana: ${result.settimana}</div>` : '';
+
+            const specialClass = result.tipo === 'Speciale' ? 'speciale' : '';
+
+            display.innerHTML = `
+                <div class="menu-card ${specialClass}">
+                    <div class="menu-header">
+                        <div class="menu-type ${result.tipo.toLowerCase()}">${result.tipo}</div>
+                        <div class="menu-info">
+                            <div class="day-name">${result.giorno}</div>
+                            ${weekInfo}
+                        </div>
+                    </div>
+                    <div class="menu-content">
+                        ${menuItems}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Inizializza con la data di oggi
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('menuDate');
+            const today = '2026-02-05'; // Data iniziale
+            dateInput.value = today;
+            
+            const result = getMenuForDate(today);
+            displayMenu(result);
+
+            dateInput.addEventListener('change', function() {
+                const result = getMenuForDate(this.value);
+                displayMenu(result);
+            });
+        });
+    </script>
+</body>
+</html>
