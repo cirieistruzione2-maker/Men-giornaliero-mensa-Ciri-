@@ -3,859 +3,644 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menù del Giorno — Comune di Ciriè</title>
+<title>Menù del Giorno · Città di Ciriè</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F7F1E4;
-    --paper-2:#EFE6D2;
-    --ink:#2B2620;
-    --ink-soft:#6B6151;
-    --line: rgba(43,38,32,0.14);
-    --estivo:#D97A21;
-    --estivo-soft:#F4E1C4;
-    --invernale:#2E6E76;
-    --invernale-soft:#DCE9E7;
-    --speciale:#7B4B8A;
-    --speciale-soft:#EADFF0;
-    --off:#B23A3A;
-    --off-soft:#F3DCDC;
-    --card-shadow: 0 1px 0 rgba(43,38,32,0.06), 0 12px 28px -18px rgba(43,38,32,0.45);
-    --radius: 20px;
+    --paper:#FFF8EC;
+    --paper-2:#FFEFD6;
+    --card:#FFFFFF;
+    --ink:#2A2140;
+    --ink-soft:#6B5E7D;
+    --ink-faint:#A79BB8;
+    --line:#EADFF2;
+
+    --estivo:#FF8A3D;
+    --estivo-ink:#8A3B0A;
+    --estivo-soft:#FFE2BC;
+    --estivo-deep:#E85D1D;
+
+    --invernale:#2F80ED;
+    --invernale-ink:#123B77;
+    --invernale-soft:#D2E7FF;
+    --invernale-deep:#1C64D1;
+
+    --speciale:#B84FE0;
+    --speciale-ink:#5B1E7A;
+    --speciale-soft:#F2DCFB;
+    --speciale-deep:#9430C2;
+
+    --closed:#8F9BB3;
+    --closed-soft:#E9ECF5;
+
+    --radius-lg:20px;
+    --radius-md:12px;
+    --shadow: 0 1px 2px rgba(42,33,64,0.07), 0 14px 34px -14px rgba(42,33,64,0.28);
   }
 
-  *{ box-sizing:border-box; }
-
-  html,body{
-    margin:0; padding:0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family:'Work Sans', system-ui, sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
   body{
-    background-image:
-      radial-gradient(circle at 1px 1px, rgba(43,38,32,0.06) 1px, transparent 0);
-    background-size: 22px 22px;
+    background:
+      radial-gradient(900px 500px at 8% -8%, #FFD9A6 0%, transparent 55%),
+      radial-gradient(900px 550px at 95% 0%, #BFE3FF 0%, transparent 55%),
+      radial-gradient(1000px 700px at 50% 115%, #E7C8FF 0%, transparent 55%),
+      var(--paper);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
     min-height:100vh;
-  }
-
-  .wrap{
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 20px 60px;
-  }
-
-  header.top{
     display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:16px;
-    margin-bottom: 28px;
-    border-bottom: 2px solid var(--ink);
-    padding-bottom: 14px;
+    justify-content:center;
+    padding:40px 18px 70px;
+    transition:background .5s ease;
+  }
+  body.season-estivo{
+    background:
+      radial-gradient(900px 550px at 10% -10%, #FFDCA8 0%, transparent 55%),
+      radial-gradient(900px 550px at 100% 10%, #FFC7A0 0%, transparent 60%),
+      radial-gradient(1000px 700px at 50% 115%, #FFEAB8 0%, transparent 55%),
+      var(--paper);
+    background-attachment:fixed;
+  }
+  body.season-invernale{
+    background:
+      radial-gradient(900px 550px at 10% -10%, #CBE7FF 0%, transparent 55%),
+      radial-gradient(900px 550px at 100% 10%, #D6D2FF 0%, transparent 60%),
+      radial-gradient(1000px 700px at 50% 115%, #DDEFFF 0%, transparent 55%),
+      var(--paper);
+    background-attachment:fixed;
+  }
+  body.season-speciale{
+    background:
+      radial-gradient(900px 550px at 10% -10%, #F3D2FF 0%, transparent 55%),
+      radial-gradient(900px 550px at 100% 10%, #FFD2E8 0%, transparent 60%),
+      radial-gradient(1000px 700px at 50% 115%, #E7D2FF 0%, transparent 55%),
+      var(--paper);
+    background-attachment:fixed;
   }
 
-  .brand{
-    display:flex;
-    flex-direction:column;
-    gap:2px;
+  .app{
+    width:100%;
+    max-width:560px;
   }
 
-  .brand .kicker{
-    font-size:12px;
-    letter-spacing:0.14em;
+  /* ---------- header ---------- */
+  header{
+    text-align:center;
+    margin-bottom:28px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.16em;
     text-transform:uppercase;
-    color: var(--ink-soft);
-    font-weight:600;
+    color:var(--ink-soft);
+    margin:0 0 8px;
   }
-
-  .brand h1{
+  h1{
     font-family:'Fraunces', serif;
     font-optical-sizing:auto;
-    font-weight:700;
-    font-size: 26px;
+    font-weight:600;
+    font-size:clamp(28px, 6vw, 38px);
+    letter-spacing:-0.01em;
     margin:0;
-    letter-spacing: -0.01em;
+    background:linear-gradient(100deg, var(--estivo-deep) 0%, var(--speciale-deep) 50%, var(--invernale-deep) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
   }
 
-  .today-btn{
-    border:1.5px solid var(--ink);
-    background: transparent;
-    color: var(--ink);
-    font-family:'Work Sans', sans-serif;
-    font-weight:600;
-    font-size:13px;
-    padding: 9px 16px;
-    border-radius: 999px;
-    cursor:pointer;
-    white-space:nowrap;
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-  .today-btn:hover{ background: var(--ink); color: var(--paper); }
-  .today-btn:focus-visible{ outline:3px solid var(--estivo); outline-offset:2px; }
-
-  /* ---- Date control ---- */
-  .datebar{
+  /* ---------- controls ---------- */
+  .controls{
     display:flex;
     align-items:center;
-    gap:10px;
-    margin-bottom: 22px;
+    gap:8px;
+    background:var(--card);
+    border:2px solid var(--line);
+    border-radius:999px;
+    padding:6px;
+    box-shadow:var(--shadow);
+    margin-bottom:22px;
   }
-  .navbtn{
-    width:40px; height:40px;
-    border-radius:50%;
-    border:1.5px solid var(--line);
-    background: var(--paper-2);
-    color: var(--ink);
-    font-size:18px;
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-    transition: border-color .15s ease, transform .1s ease;
-  }
-  .navbtn:hover{ border-color: var(--ink); }
-  .navbtn:active{ transform: scale(0.94); }
-  .navbtn:focus-visible{ outline:3px solid var(--estivo); outline-offset:2px; }
-  .navbtn:disabled{ opacity:0.35; cursor:not-allowed; }
-
-  .datepick{
-    flex:1;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    border:1.5px solid var(--line);
-    background: var(--paper-2);
-    border-radius: 14px;
-    padding: 8px 14px;
-  }
-  .datepick label{
-    font-size:12px;
-    font-weight:600;
-    color: var(--ink-soft);
-    letter-spacing:0.04em;
-    text-transform:uppercase;
-    white-space:nowrap;
-  }
-  .datepick input[type="date"]{
+  .controls button{
     border:none;
     background:transparent;
-    font-family:'Work Sans', sans-serif;
-    font-size:15px;
-    font-weight:600;
-    color: var(--ink);
-    flex:1;
-    min-width:0;
-  }
-  .datepick input[type="date"]:focus-visible{ outline:2px solid var(--estivo); border-radius:6px;}
-
-  /* ---- Hero card ---- */
-  .board{
-    position:relative;
-    background:#fff;
-    border-radius: var(--radius);
-    box-shadow: var(--card-shadow);
-    border: 1px solid var(--line);
-    overflow:hidden;
-  }
-
-  .board .pin{
-    position:absolute;
-    top:14px; right:22px;
-    width:14px; height:14px;
-    border-radius:50%;
-    background: repeating-conic-gradient(var(--ink) 0 90deg, transparent 0 180deg);
-    opacity:0.15;
-  }
-
-  .board-head{
-    padding: 26px 28px 20px;
+    color:var(--invernale-deep);
+    width:38px;
+    height:38px;
+    border-radius:999px;
     display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap: 16px;
-    border-bottom: 1px dashed var(--line);
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    flex:0 0 auto;
+    transition:background .15s ease, color .15s ease;
   }
-
-  .board-head .datebig{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size: 34px;
-    line-height:1.05;
-    letter-spacing:-0.01em;
-    text-transform:capitalize;
+  .controls button:hover{background:var(--invernale-soft); color:var(--invernale-deep);}
+  .controls button:focus-visible, .date-input:focus-visible, .today-btn:focus-visible, .week-strip button:focus-visible{
+    outline:2px solid var(--invernale);
+    outline-offset:2px;
   }
-  .board-head .datebig small{
-    display:block;
-    font-family:'Work Sans', sans-serif;
+  .controls svg{width:18px;height:18px;}
+  .date-input{
+    flex:1 1 auto;
+    border:none;
+    background:transparent;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14.5px;
     font-weight:500;
-    font-size: 14px;
-    color: var(--ink-soft);
-    text-transform:none;
-    margin-top:4px;
+    color:var(--ink);
+    padding:8px 4px;
+    min-width:0;
+    text-align:center;
+  }
+  .date-input::-webkit-calendar-picker-indicator{opacity:.55; cursor:pointer;}
+  .today-btn{
+    border:none;
+    background:linear-gradient(120deg, var(--estivo-deep), var(--speciale-deep));
+    color:#fff;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    padding:0 16px;
+    height:38px;
+    border-radius:999px;
+    cursor:pointer;
+    flex:0 0 auto;
+    transition:opacity .15s ease, transform .15s ease;
+  }
+  .today-btn:hover{opacity:.9; transform:translateY(-1px);}
+
+  /* ---------- card ---------- */
+  .card-wrap{
+    position:relative;
+  }
+  .tab{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:7px 16px 7px 12px;
+    border-radius:999px 999px 0 0;
+    position:relative;
+    top:1px;
+    color:#fff;
+    transition:background .35s ease, color .35s ease;
+  }
+  .tab .dot{
+    width:16px;height:16px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;
+    line-height:1;
+    flex:0 0 auto;
+  }
+  .tab .dot::before{content:'';}
+
+  .card{
+    background:var(--card);
+    border:2px solid var(--line);
+    border-radius:2px var(--radius-lg) var(--radius-lg) var(--radius-lg);
+    box-shadow:var(--shadow);
+    padding:26px 26px 24px;
+    transition:border-color .35s ease;
   }
 
+  .season-estivo .tab{background:linear-gradient(120deg, var(--estivo), var(--estivo-deep)); border-color:var(--estivo-deep);}
+  .season-invernale .tab{background:linear-gradient(120deg, var(--invernale), var(--invernale-deep)); border-color:var(--invernale-deep);}
+  .season-speciale .tab{background:linear-gradient(120deg, var(--speciale), var(--speciale-deep)); border-color:var(--speciale-deep);}
+  .season-closed .tab{background:var(--closed); color:#fff;}
+
+  .season-estivo .card{border-color:var(--estivo-deep);}
+  .season-invernale .card{border-color:var(--invernale-deep);}
+  .season-speciale .card{border-color:var(--speciale-deep);}
+  .season-closed .card{border-color:var(--line);}
+
+  .season-estivo .tab .dot::before{content:'☀️';}
+  .season-invernale .tab .dot::before{content:'❄️';}
+  .season-speciale .tab .dot::before{content:'✨';}
+  .season-closed .tab .dot::before{content:'🔒';}
+
+  .meta-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:16px;
+  }
   .badge{
     display:inline-flex;
     align-items:center;
     gap:6px;
-    padding: 7px 13px;
-    border-radius: 999px;
-    font-size: 12.5px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
     font-weight:700;
-    letter-spacing:0.03em;
-    white-space:nowrap;
+    padding:5px 12px;
+    border-radius:999px;
   }
-  .badge.estivo{ background: var(--estivo-soft); color: #8A4B0F; }
-  .badge.invernale{ background: var(--invernale-soft); color: #1B4B51; }
-  .badge.speciale{ background: var(--speciale-soft); color: #532A5F; }
-  .badge.off{ background: var(--off-soft); color: #7A2323; }
-  .badge.week{
-    background: var(--paper-2);
-    color: var(--ink-soft);
-  }
+  .season-estivo .badge{background:var(--estivo-soft); color:var(--estivo-ink);}
+  .season-invernale .badge{background:var(--invernale-soft); color:var(--invernale-ink);}
+  .season-speciale .badge{background:var(--speciale-soft); color:var(--speciale-ink);}
 
-  .badges-row{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    gap:8px;
-  }
-
-  .board-body{
-    padding: 24px 28px 30px;
-    min-height: 160px;
-  }
-
-  .courses{
-    list-style:none;
-    margin:0; padding:0;
-    display:flex;
-    flex-direction:column;
-    gap: 12px;
-  }
-  .courses li{
-    display:flex;
-    gap:12px;
-    align-items:baseline;
-    font-size: 16.5px;
-    line-height:1.4;
-  }
-  .courses li .dot{
-    width:7px; height:7px;
-    border-radius:50%;
-    background: var(--estivo);
-    flex-shrink:0;
-    transform: translateY(-3px);
-  }
-  .courses.invernale-dot li .dot{ background: var(--invernale); }
-  .courses.speciale-dot li .dot{ background: var(--speciale); }
-
-  .empty-state{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:6px;
-    color: var(--ink-soft);
-  }
-  .empty-state .headline{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size: 19px;
-    color: var(--ink);
-  }
-  .empty-state .action{
-    margin-top:10px;
-    background:none;
-    border:none;
-    color: var(--estivo);
-    font-weight:700;
-    font-size:14px;
-    cursor:pointer;
-    padding:0;
-    text-decoration:underline;
-    text-underline-offset:3px;
-  }
-
-  /* ---- week strip ---- */
-  .strip{
-    display:grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    margin-top: 22px;
-  }
-  .strip .day{
-    border:1.5px solid var(--line);
-    border-radius: 12px;
-    padding: 10px 6px;
-    text-align:center;
-    background:#fff;
+  .week-badge{
+    font-family:'IBM Plex Mono', monospace;
     font-size:12.5px;
     font-weight:600;
-    color: var(--ink-soft);
-    cursor:pointer;
-    transition: border-color .15s ease, background .15s ease;
+    padding:5px 12px;
+    border-radius:999px;
+    background:var(--paper-2);
+    color:var(--ink-soft);
   }
-  .strip .day:hover{ border-color: var(--ink); }
-  .strip .day.active{
-    border-color: var(--ink);
-    background: var(--paper-2);
-    color: var(--ink);
-  }
-  .strip .day.holiday{
-    color: var(--off);
-    text-decoration: line-through;
-    opacity:0.6;
-  }
-  .strip .day .lbl{ display:block; text-transform:uppercase; letter-spacing:0.03em; font-size:11px; }
-  .strip .day .num{ display:block; font-family:'Fraunces',serif; font-size:17px; margin-top:2px; color:var(--ink); }
 
-  /* ---- info / legend ---- */
-  details.legend{
-    margin-top: 26px;
-    border-top: 1px solid var(--line);
-    padding-top: 16px;
-  }
-  details.legend summary{
-    cursor:pointer;
+  .date-line{
+    font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:13.5px;
-    color: var(--ink-soft);
+    font-size:clamp(21px, 5vw, 26px);
+    line-height:1.25;
+    margin:0 0 18px;
+    color:var(--ink);
+  }
+  .date-line .wd{display:block; font-size:.62em; font-weight:500; color:var(--ink-soft); margin-bottom:2px; font-family:'IBM Plex Sans', sans-serif; text-transform:uppercase; letter-spacing:.08em;}
+
+  hr.divider{
+    border:none;
+    border-top:1px dashed var(--line);
+    margin:0 0 18px;
+  }
+
+  .dishes{
     list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:11px;
   }
-  details.legend summary::-webkit-details-marker{ display:none; }
-  details.legend summary::before{
-    content:"＋ ";
-    color: var(--estivo);
-    font-weight:700;
+  .dishes li{
+    display:flex;
+    gap:11px;
+    align-items:flex-start;
+    font-size:15.5px;
+    line-height:1.4;
   }
-  details.legend[open] summary::before{ content:"－ "; }
-  .legend-body{
-    margin-top:12px;
-    font-size:13.5px;
-    color: var(--ink-soft);
-    line-height:1.7;
+  .dishes li::before{
+    content:'';
+    width:7px;height:7px;
+    border-radius:50%;
+    background:var(--ink-faint);
+    margin-top:7px;
+    flex:0 0 auto;
   }
-  .legend-body strong{ color: var(--ink); }
+  .season-estivo .dishes li::before{background:var(--estivo);}
+  .season-invernale .dishes li::before{background:var(--invernale);}
+  .season-speciale .dishes li::before{background:var(--speciale);}
+  .dishes li.last{color:var(--ink-soft); font-size:14px;}
+  .dishes li.last::before{background:var(--ink-faint) !important;}
 
-  footer.foot{
-    margin-top: 30px;
+  /* ---------- empty / closed states ---------- */
+  .empty-state{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .empty-state svg{flex:0 0 auto; width:30px;height:30px; color:var(--ink-faint); margin-top:2px;}
+  .empty-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:19px;
+    margin:0 0 4px;
+  }
+  .empty-text{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    margin:0;
+    line-height:1.5;
+  }
+
+  /* ---------- week strip ---------- */
+  .week-strip{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    margin-top:20px;
+  }
+  .week-strip button{
+    border:2px solid var(--line);
+    background:var(--card);
+    border-radius:var(--radius-md);
+    padding:10px 4px 9px;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Sans', sans-serif;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .week-strip button:hover{border-color:var(--ink-faint); transform:translateY(-1px);}
+  .week-strip .wlabel{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft);}
+  .week-strip .wnum{font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; color:var(--ink);}
+  .week-strip .wdot{width:8px;height:8px;border-radius:50%;background:var(--closed);}
+  .week-strip button.wd-estivo{background:var(--estivo-soft); border-color:var(--estivo-soft);}
+  .week-strip button.wd-estivo .wdot{background:var(--estivo-deep);}
+  .week-strip button.wd-invernale{background:var(--invernale-soft); border-color:var(--invernale-soft);}
+  .week-strip button.wd-invernale .wdot{background:var(--invernale-deep);}
+  .week-strip button.wd-speciale{background:var(--speciale-soft); border-color:var(--speciale-soft);}
+  .week-strip button.wd-speciale .wdot{background:var(--speciale-deep);}
+  .week-strip button.active{border-color:var(--ink); box-shadow:0 0 0 2px var(--ink) inset;}
+  .week-strip button.today .wnum{position:relative;}
+  .week-strip button.today .wnum::after{
+    content:'';
+    position:absolute; left:50%; bottom:-5px; translate:-50% 0;
+    width:5px;height:5px;border-radius:50%;background:var(--speciale-deep);
+  }
+
+  footer{
     text-align:center;
+    margin-top:30px;
     font-size:12px;
-    color: var(--ink-soft);
-  }
-
-  @media (max-width: 480px){
-    .board-head{ flex-direction:column; }
-    .badges-row{ align-items:flex-start; flex-direction:row; flex-wrap:wrap; }
-    .board-head .datebig{ font-size:26px; }
-    .strip{ grid-template-columns: repeat(5, 1fr); gap:6px; }
-    .strip .day{ padding:8px 2px; font-size:11px; }
-    .strip .day .num{ font-size:14px; }
+    color:var(--ink-soft);
+    font-weight:600;
+    font-family:'IBM Plex Mono', monospace;
   }
 
   @media (prefers-reduced-motion: reduce){
-    *{ transition:none !important; }
+    *{transition:none !important;}
   }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="app">
 
-  <header class="top">
-    <div class="brand">
-      <span class="kicker">Comune di Ciriè · Servizi Educativi</span>
-      <h1>Menù del giorno</h1>
-    </div>
-    <button class="today-btn" id="btnToday" type="button">Oggi</button>
+  <header>
+    <p class="eyebrow">Città di Ciriè · Ristorazione scolastica</p>
+    <h1>Menù del giorno</h1>
   </header>
 
-  <div class="datebar">
-    <button class="navbtn" id="btnPrev" type="button" aria-label="Giorno di mensa precedente">‹</button>
-    <div class="datepick">
-      <label for="datePicker">Data</label>
-      <input type="date" id="datePicker" min="2026-08-01" max="2027-06-30">
-    </div>
-    <button class="navbtn" id="btnNext" type="button" aria-label="Giorno di mensa successivo">›</button>
+  <div class="controls">
+    <button id="prevBtn" aria-label="Giorno precedente" title="Giorno precedente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <input type="date" id="dateInput" class="date-input" aria-label="Seleziona data">
+    <button id="nextBtn" aria-label="Giorno successivo" title="Giorno successivo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <button class="today-btn" id="todayBtn">Oggi</button>
   </div>
 
-  <div class="board" id="board">
-    <div class="pin" aria-hidden="true"></div>
-    <div class="board-head">
-      <div class="datebig" id="dateBig">—<small id="dateSmall">&nbsp;</small></div>
-      <div class="badges-row" id="badgesRow"></div>
+  <div class="card-wrap">
+    <div id="tab" class="tab"><span class="dot"></span><span id="tabLabel">—</span></div>
+    <div id="card" class="card">
+      <!-- popolato via JS -->
     </div>
-    <div class="board-body" id="boardBody"></div>
   </div>
 
-  <div class="strip" id="weekStrip" aria-hidden="true"></div>
+  <div id="weekStrip" class="week-strip"></div>
 
-  <details class="legend">
-    <summary>Regole e periodi del menù</summary>
-    <div class="legend-body">
-      <strong>Periodo estivo 1:</strong> lun 14 set 2026 → dom 1 nov 2026 (ciclo di 4 settimane)<br>
-      <strong>Periodo invernale:</strong> lun 2 nov 2026 → mar 30 mar 2027 (ciclo di 8 settimane)<br>
-      <strong>Periodo estivo 2:</strong> mer 31 mar 2027 → mer 30 giu 2027 (ciclo di 4 settimane). La Settimana Prima riparte mercoledì 31 marzo 2027 (solo Mer-Gio-Ven); la Settimana Seconda inizia regolarmente lunedì 5 aprile 2027.<br><br>
-      Il menù non è previsto nei giorni festivi, di sospensione delle lezioni o di vacanza: in questi casi il ciclo settimanale avanza automaticamente al giorno feriale successivo, mantenendo la corrispondenza tra il giorno del menù (es. "Mercoledì") e il giorno reale della settimana. Sabato e domenica non hanno menù.<br><br>
-      I <strong>menù speciali</strong> (per data specifica) sostituiscono il menù ordinario quando presenti: al momento non ne sono configurati.
-    </div>
-  </details>
-
-  <footer class="foot">Applicazione attiva dal 14 settembre 2026 al 30 giugno 2027 — A.S. 2026/2027</footer>
+  <footer>Comune di Ciriè — anno scolastico 2026/2027</footer>
 </div>
 
 <script>
-/* ======================= DATI: MENÙ ESTIVO (4 settimane) ======================= */
-const MENU_ESTIVO = {
-  1: {
-    "Lunedì":    ["Pasta al pesto","Petto di pollo alla milanese","Insalata verde e carote","Frutta / pane"],
-    "Martedì":   ["Passato di verdura con riso","Arrosto di bovino","Patate all'origano","Frutta / pane"],
-    "Mercoledì": ["Pasta integrale al pomodoro e ricotta","Halibut in umido","Zucchine saltate","Yogurt alla frutta / pane integrale"],
-    "Giovedì":   ["Riso e piselli (insalata di riso per le medie)","Tortino di verdure","Fagiolini all'olio","Frutta / pane"],
-    "Venerdì":   ["Pasta aglio e olio","Mozzarella","Insalata di pomodori","Frutta / pane"]
-  },
-  2: {
-    "Lunedì":    ["Tagliatelle al pomodoro e basilico","Salsiccia (prosciutto cotto per le materne)","Insalata di pomodori","Torcetti o pasta di meliga / pane"],
-    "Martedì":   ["Pasta al sugo di zucchine","Tomino / robiola","Insalata di carote julienne","Frutta / pane"],
-    "Mercoledì": ["Passato di verdura con crostini","Scaloppine di tacchino alla pizzaiola","Patate al forno","Frutta / pane integrale"],
-    "Giovedì":   ["Risotto alla parmigiana","Bastoncini di pesce","Zucchine trifolate","Frutta / pane"],
-    "Venerdì":   ["Pasta aglio, olio e pangrattato","Gateau di verdure e fontal","Insalata verde","Frutta / pane"]
-  },
-  3: {
-    "Lunedì":    ["Ravioli di magro burro e salvia","Toma di Lanzo","Fagiolini all'olio","Yogurt alla frutta / pane"],
-    "Martedì":   ["Vellutata di zucchine con pasta (pastina in brodo per le materne)","Frittata di spinaci","Patate arrosto","Frutta / pane"],
-    "Mercoledì": ["Pasta al sugo e tonno (pasta al sugo per le materne)","Arrosto di bovino","Carote al forno","Frutta / pane integrale"],
-    "Giovedì":   ["Risotto allo zafferano","Spezzatino di tacchino","Macedonia di verdure","Frutta / pane"],
-    "Venerdì":   ["Gnocchi al pesto","Platessa al forno","Insalata di finocchi","Macedonia di frutta / pane"]
-  },
-  4: {
-    "Lunedì":    ["Pizza al pomodoro","Mozzarella","Pomodori con origano","Frutta / pane"],
-    "Martedì":   ["Passato di verdure con pastina","Castellana","Insalata di patate e prezzemolo","Frutta / pane"],
-    "Mercoledì": ["Pasta all'olio e parmigiano","Halibut al forno","Fagiolini saltati","Frutta / pane integrale"],
-    "Giovedì":   ["Risotto al pomodoro","Sovracoscia di pollo arrosto","Insalata verde","Budino alla vaniglia / pane"],
-    "Venerdì":   ["Insalata di riso","Uovo sodo","Insalata mista con carote","Frutta / pane"]
-  }
+/* ====== DATI (generati da calendario scolastico + menù estivo/invernale) ====== */
+const MENU_TABLE = {"2026-09-14":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Lunedì","note":""},"2026-09-15":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Martedì","note":""},"2026-09-16":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Mercoledì","note":""},"2026-09-17":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Giovedì","note":""},"2026-09-18":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Venerdì","note":""},"2026-09-19":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-09-20":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-09-21":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Lunedì","note":""},"2026-09-22":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Martedì","note":""},"2026-09-23":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Mercoledì","note":""},"2026-09-24":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Giovedì","note":""},"2026-09-25":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Venerdì","note":""},"2026-09-26":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-09-27":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-09-28":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Lunedì","note":""},"2026-09-29":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Martedì","note":""},"2026-09-30":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Mercoledì","note":""},"2026-10-01":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Giovedì","note":""},"2026-10-02":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Venerdì","note":""},"2026-10-03":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-10-04":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-10-05":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Lunedì","note":""},"2026-10-06":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Martedì","note":""},"2026-10-07":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Mercoledì","note":""},"2026-10-08":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Giovedì","note":""},"2026-10-09":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Venerdì","note":""},"2026-10-10":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-10-11":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-10-12":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Lunedì","note":""},"2026-10-13":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Martedì","note":""},"2026-10-14":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Mercoledì","note":""},"2026-10-15":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Giovedì","note":""},"2026-10-16":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Venerdì","note":""},"2026-10-17":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-10-18":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-10-19":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Lunedì","note":""},"2026-10-20":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Martedì","note":""},"2026-10-21":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Mercoledì","note":""},"2026-10-22":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Giovedì","note":""},"2026-10-23":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Venerdì","note":""},"2026-10-24":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-10-25":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-10-26":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Lunedì","note":""},"2026-10-27":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Martedì","note":""},"2026-10-28":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Mercoledì","note":""},"2026-10-29":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Giovedì","note":""},"2026-10-30":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Venerdì","note":""},"2026-10-31":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-01":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-02":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Lunedì","note":""},"2026-11-03":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Martedì","note":""},"2026-11-04":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Mercoledì","note":""},"2026-11-05":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Giovedì","note":""},"2026-11-06":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Venerdì","note":""},"2026-11-07":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-08":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-09":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Lunedì","note":""},"2026-11-10":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Martedì","note":""},"2026-11-11":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Mercoledì","note":""},"2026-11-12":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Giovedì","note":""},"2026-11-13":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Venerdì","note":""},"2026-11-14":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-15":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-16":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Lunedì","note":""},"2026-11-17":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Martedì","note":""},"2026-11-18":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Mercoledì","note":""},"2026-11-19":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Giovedì","note":""},"2026-11-20":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Venerdì","note":""},"2026-11-21":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-22":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-23":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Lunedì","note":""},"2026-11-24":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Martedì","note":""},"2026-11-25":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Mercoledì","note":""},"2026-11-26":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Giovedì","note":""},"2026-11-27":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Venerdì","note":""},"2026-11-28":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-29":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-11-30":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Lunedì","note":""},"2026-12-01":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Martedì","note":""},"2026-12-02":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Mercoledì","note":""},"2026-12-03":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Giovedì","note":""},"2026-12-04":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Venerdì","note":""},"2026-12-05":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-12-06":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-12-07":{"weekdayIT":"Lunedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"sospensione lezioni"},"2026-12-08":{"weekdayIT":"Martedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"IMMACOLATA"},"2026-12-09":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Lunedì","note":""},"2026-12-10":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Martedì","note":""},"2026-12-11":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Mercoledì","note":""},"2026-12-12":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-12-13":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-12-14":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Giovedì","note":""},"2026-12-15":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Venerdì","note":""},"2026-12-16":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Lunedì","note":""},"2026-12-17":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Martedì","note":""},"2026-12-18":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Mercoledì","note":""},"2026-12-19":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-12-20":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-12-21":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Giovedì","note":""},"2026-12-22":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Venerdì","note":""},"2026-12-23":{"weekdayIT":"Mercoledì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze natalizie"},"2026-12-24":{"weekdayIT":"Giovedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze natalizie"},"2026-12-25":{"weekdayIT":"Venerdì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"NATALE"},"2026-12-26":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-12-27":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2026-12-28":{"weekdayIT":"Lunedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze natalizie"},"2026-12-29":{"weekdayIT":"Martedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze natalizie"},"2026-12-30":{"weekdayIT":"Mercoledì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze natalizie"},"2026-12-31":{"weekdayIT":"Giovedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze natalizie"},"2027-01-01":{"weekdayIT":"Venerdì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"CAPODANNO"},"2027-01-02":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-01-03":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-01-04":{"weekdayIT":"Lunedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze natalizie"},"2027-01-05":{"weekdayIT":"Martedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze natalizie"},"2027-01-06":{"weekdayIT":"Mercoledì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"EPIFANIA"},"2027-01-07":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Lunedì","note":""},"2027-01-08":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Martedì","note":""},"2027-01-09":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-01-10":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-01-11":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Mercoledì","note":""},"2027-01-12":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Giovedì","note":""},"2027-01-13":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Venerdì","note":""},"2027-01-14":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Lunedì","note":""},"2027-01-15":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Martedì","note":""},"2027-01-16":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-01-17":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-01-18":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Mercoledì","note":""},"2027-01-19":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Giovedì","note":""},"2027-01-20":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Venerdì","note":""},"2027-01-21":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Lunedì","note":""},"2027-01-22":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Martedì","note":""},"2027-01-23":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-01-24":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-01-25":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Mercoledì","note":""},"2027-01-26":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Giovedì","note":""},"2027-01-27":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Venerdì","note":""},"2027-01-28":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Lunedì","note":""},"2027-01-29":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Martedì","note":""},"2027-01-30":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-01-31":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-02-01":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Mercoledì","note":""},"2027-02-02":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Giovedì","note":""},"2027-02-03":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":3,"menuGiorno":"Venerdì","note":""},"2027-02-04":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Lunedì","note":""},"2027-02-05":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Martedì","note":""},"2027-02-06":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-02-07":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-02-08":{"weekdayIT":"Lunedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze carnevale"},"2027-02-09":{"weekdayIT":"Martedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze carnevale"},"2027-02-10":{"weekdayIT":"Mercoledì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze carnevale"},"2027-02-11":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Mercoledì","note":""},"2027-02-12":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Giovedì","note":""},"2027-02-13":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-02-14":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-02-15":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":4,"menuGiorno":"Venerdì","note":""},"2027-02-16":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Lunedì","note":""},"2027-02-17":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Martedì","note":""},"2027-02-18":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Mercoledì","note":""},"2027-02-19":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Giovedì","note":""},"2027-02-20":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-02-21":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-02-22":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":5,"menuGiorno":"Venerdì","note":""},"2027-02-23":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Lunedì","note":""},"2027-02-24":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Martedì","note":""},"2027-02-25":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Mercoledì","note":""},"2027-02-26":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Giovedì","note":""},"2027-02-27":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-02-28":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-03-01":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":6,"menuGiorno":"Venerdì","note":""},"2027-03-02":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Lunedì","note":""},"2027-03-03":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Martedì","note":""},"2027-03-04":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Mercoledì","note":""},"2027-03-05":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Giovedì","note":""},"2027-03-06":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-03-07":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-03-08":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":7,"menuGiorno":"Venerdì","note":""},"2027-03-09":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Lunedì","note":""},"2027-03-10":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Martedì","note":""},"2027-03-11":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Mercoledì","note":""},"2027-03-12":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Giovedì","note":""},"2027-03-13":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-03-14":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-03-15":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":8,"menuGiorno":"Venerdì","note":""},"2027-03-16":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Lunedì","note":""},"2027-03-17":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Martedì","note":""},"2027-03-18":{"weekdayIT":"Giovedì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Mercoledì","note":""},"2027-03-19":{"weekdayIT":"Venerdì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Giovedì","note":""},"2027-03-20":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-03-21":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-03-22":{"weekdayIT":"Lunedì","isOpen":true,"season":"invernale","week":1,"menuGiorno":"Venerdì","note":""},"2027-03-23":{"weekdayIT":"Martedì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Lunedì","note":""},"2027-03-24":{"weekdayIT":"Mercoledì","isOpen":true,"season":"invernale","week":2,"menuGiorno":"Martedì","note":""},"2027-03-25":{"weekdayIT":"Giovedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze pasquali"},"2027-03-26":{"weekdayIT":"Venerdì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze pasquali"},"2027-03-27":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-03-28":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-03-29":{"weekdayIT":"Lunedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"LUNEDÌ DELL'ANGELO"},"2027-03-30":{"weekdayIT":"Martedì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"vacanze pasquali"},"2027-03-31":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Mercoledì","note":""},"2027-04-01":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Giovedì","note":""},"2027-04-02":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Venerdì","note":""},"2027-04-03":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-04-04":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-04-05":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Lunedì","note":""},"2027-04-06":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Martedì","note":""},"2027-04-07":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Mercoledì","note":""},"2027-04-08":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Giovedì","note":""},"2027-04-09":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Venerdì","note":""},"2027-04-10":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-04-11":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-04-12":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Lunedì","note":""},"2027-04-13":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Martedì","note":""},"2027-04-14":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Mercoledì","note":""},"2027-04-15":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Giovedì","note":""},"2027-04-16":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Venerdì","note":""},"2027-04-17":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-04-18":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-04-19":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Lunedì","note":""},"2027-04-20":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Martedì","note":""},"2027-04-21":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Mercoledì","note":""},"2027-04-22":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Giovedì","note":""},"2027-04-23":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Venerdì","note":""},"2027-04-24":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-04-25":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-04-26":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Lunedì","note":""},"2027-04-27":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Martedì","note":""},"2027-04-28":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Mercoledì","note":""},"2027-04-29":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Giovedì","note":""},"2027-04-30":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Venerdì","note":""},"2027-05-01":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-02":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-03":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Lunedì","note":""},"2027-05-04":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Martedì","note":""},"2027-05-05":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Mercoledì","note":""},"2027-05-06":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Giovedì","note":""},"2027-05-07":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Venerdì","note":""},"2027-05-08":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-09":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-10":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Lunedì","note":""},"2027-05-11":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Martedì","note":""},"2027-05-12":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Mercoledì","note":""},"2027-05-13":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Giovedì","note":""},"2027-05-14":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Venerdì","note":""},"2027-05-15":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-16":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-17":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Lunedì","note":""},"2027-05-18":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Martedì","note":""},"2027-05-19":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Mercoledì","note":""},"2027-05-20":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Giovedì","note":""},"2027-05-21":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Venerdì","note":""},"2027-05-22":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-23":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-24":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Lunedì","note":""},"2027-05-25":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Martedì","note":""},"2027-05-26":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Mercoledì","note":""},"2027-05-27":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Giovedì","note":""},"2027-05-28":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Venerdì","note":""},"2027-05-29":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-30":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-05-31":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Lunedì","note":""},"2027-06-01":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Martedì","note":""},"2027-06-02":{"weekdayIT":"Mercoledì","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"FESTA DELLA REPUBBLICA"},"2027-06-03":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Mercoledì","note":""},"2027-06-04":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Giovedì","note":""},"2027-06-05":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-06-06":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-06-07":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Venerdì","note":""},"2027-06-08":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Lunedì","note":""},"2027-06-09":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Martedì","note":""},"2027-06-10":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Mercoledì","note":""},"2027-06-11":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Giovedì","note":""},"2027-06-12":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-06-13":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-06-14":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":3,"menuGiorno":"Venerdì","note":""},"2027-06-15":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Lunedì","note":""},"2027-06-16":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Martedì","note":""},"2027-06-17":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Mercoledì","note":""},"2027-06-18":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Giovedì","note":""},"2027-06-19":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-06-20":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-06-21":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":4,"menuGiorno":"Venerdì","note":""},"2027-06-22":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Lunedì","note":""},"2027-06-23":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Martedì","note":""},"2027-06-24":{"weekdayIT":"Giovedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Mercoledì","note":""},"2027-06-25":{"weekdayIT":"Venerdì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Giovedì","note":""},"2027-06-26":{"weekdayIT":"Sabato","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-06-27":{"weekdayIT":"Domenica","isOpen":false,"season":null,"week":null,"menuGiorno":null,"note":"weekend"},"2027-06-28":{"weekdayIT":"Lunedì","isOpen":true,"season":"estivo","week":1,"menuGiorno":"Venerdì","note":""},"2027-06-29":{"weekdayIT":"Martedì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Lunedì","note":""},"2027-06-30":{"weekdayIT":"Mercoledì","isOpen":true,"season":"estivo","week":2,"menuGiorno":"Martedì","note":""}};
+const MENU_DATA = {"estivo":{"1":{"Lunedì":["PASTA AL PESTO","PETTO DI POLLO ALLA MILANESE","INSALATA VERDE E CAROTE","FRUTTA/PANE"],"Martedì":["PASSATO DI VERDURA CON RISO","ARROSTO DI BOVINO","PATATE ALL’ORIGANO","FRUTTA/PANE"],"Mercoledì":["PASTA INTEGRALE AL POMODORO E RICOTTA","HALIBUT IN UMIDO","ZUCCHINE SALTATE","YOGURT ALLA FRUTTA/PANE INTEGRALE"],"Giovedì":["RISO E PISELLI","INSALATA DI RISO (MEDIE)","TORTINO DI VERDURE","FAGIOLINI ALL’OLIO","FRUTTA/PANE"],"Venerdì":["PASTA AGLIO E OLIO","MOZZARELLA","INSALATA DI POMODORI","FRUTTA/PANE"]},"2":{"Lunedì":["TAGLIATELLE AL POMODORO","E BASILICO","SALSICCIA","PROSCIUTTO COTTO (MATERNE)","INSALATA DI POMODORI","TORCETTI O PASTA DI MELIGA/PANE"],"Martedì":["PASTA AL SUGO DI ZUCCHINE TOMINO/ROBIOLA","INSALATA DI CAROTE JULIENNE","FRUTTA/PANE"],"Mercoledì":["PASSATO DI VERDURA CON CROSTINI","SCALOPPINE DI TACCHINO ALLA PIZZAIOLA","PATATE AL FORNO","FRUTTA/PANE INTEGRALE"],"Giovedì":["RISOTTO ALLA PARMIGIANA","BASTONCINI DI PESCE","ZUCCHINE TRIFOLATE","FRUTTA/PANE"],"Venerdì":["PASTA  AGLIO/OLIO E PANGRATTATO","GATEAU DI VERDURE E FONTAL","INSALATA VERDE","FRUTTA/PANE"]},"3":{"Lunedì":["RAVIOLI DI MAGRO BURRO E SALVIA","TOMA DI LANZO","FAGIOLINI ALL’OLIO","YOGURT ALLA FRUTTA/PANE"],"Martedì":["VELLUTATA DI ZUCCHINE CON PASTA","PASTINA IN BRODO (MATERNE)","FRITTATA DI SPINACI","PATATE ARROSTO","FRUTTA/PANE"],"Mercoledì":["PASTA AL SUGO E  TONNO","PASTA AL SUGO (MATERNE)","ARROSTO DI BOVINO","CAROTE AL FORNO","FRUTTA/PANE INTEGRALE"],"Giovedì":["RISOTTO ALLO ZAFFERANO","SPEZZATINO DI TACCHINO","MACEDONIA DI VERDURE","FRUTTA/PANE"],"Venerdì":["GNOCCHI AL PESTO","PLATESSA AL FORNO","INSALATA DI FINOCCHI","MACEDONIA DI FRUTTA/PANE"]},"4":{"Lunedì":["PIZZA AL POMODORO","MOZZARELLA","POMODORI CON ORIGANO","FRUTTA/PANE"],"Martedì":["PASSATO DI VERDURE CON PASTINA CASTELLANA","INSALATA DI PATATE E PREZZEMOLO","FRUTTA/PANE"],"Mercoledì":["PASTA ALL’OLIO E PARMIGIANO","HALIBUT AL FORNO","FAGIOLINI SALTATI","FRUTTA/PANE INTEGRALE"],"Giovedì":["RISOTTO AL POMODORO","SOVRACOSCIA DI POLLO ARROSTO","INSALATA VERDE","BUDINO ALLA VANIGLIA/PANE"],"Venerdì":["INSALATA DI RISO","UOVO SODO","INSALATA MISTA CON CAROTE","FRUTTA/PANE"]}},"invernale":{"1":{"Lunedì":["VELLUTATA DI ZUCCA CON CROSTINI","SOVRACOSCIA DI POLLO ARROSTO","PATATE LESSE ALL’OLIO PROFUMATO","FRUTTA/PANE"],"Martedì":["RISOTTO ALLA MILANESE","CRESCENZA","FAGIOLINI AROMATIZZATI CALDI","FRUTTA/PANE"],"Mercoledì":["PASTA IN BIANCO","PASTA AGLIO E OLIO PER MEDIE","ARROSTO DI LONZA","INSALATA VERDE","YOGURT ALLA FRUTTA/PANE INTEGRALE"],"Giovedì":["PASTA INTEGRALE  AL POMODORO","PLATESSA AL FORNO","CAROTE AL FORNO","MACEDONIA DI FRUTTA/PANE"],"Venerdì":["PASTA CON PESTO DI BROCCOLI","FRITTATA DI SPINACI","INSALATA DI VERZA","FRUTTA/PANE"]},"2":{"Lunedì":["GNOCCHI AL POMODORO","PASTINA IN BRODO (MATERNE)","MOZZARELLA","INSALATA MISTA (VERDE  E CAROTE)","FRUTTA/PANE"],"Martedì":["PASSATO DI CECI E ROSMARINO CON PASTA","SALSICCIA","PUREA","FRUTTA/PANE"],"Mercoledì":["PIATTO UNICO: POLENTA  E","BOCCONCINI DI TACCHINO IN UMIDO","INSALATA DI FINOCCHI","FRUTTA/PANE INTEGRALE"],"Giovedì":["RISOTTO AL POMODORO","FRITTATA ALLA PARMIGIANA","SPINACI AL PARMIGIANO","BUDINO AL CIOCCOLATO/PANE"],"Venerdì":["PASTINA ALL’UOVO IN BRODO CON VERDURE PASSATE","HALIBUT AL FORNO","PISELLI","FRUTTA/PANE"]},"3":{"Lunedì":["PIZZA AL POMODORO","MOZZARELLA","SPINACI SALTATI","FRUTTA/PANE"],"Martedì":["VELLUTATA DI PORRI E PATATE + CROSTINI","POLPETTE DI BOVINO IN UMIDO","INSALATA VERDE","FRUTTA/PANE"],"Mercoledì":["PASTA AL POMODORO","PLATESSA DORATA","TRIS DI VERDURE (CAVOLFIORI/BROCCOLI/CAROTE)","FRUTTA/PANE INTEGRALE"],"Giovedì":["RAVIOLI RICOTTA E SPINACI","SCALOPPINE DI POLLO AL FORNO","FAGIOLINI ALL’OLIO","TORCETTI/PANE"],"Venerdì":["PASSATO DI LEGUMI CON RISO","FRITTATA ALLA PARMIGIANA","INSALATA VERDE E RADICCHIO","FRUTTA/PANE"]},"4":{"Lunedì":["PASTA AL BURRO E SALVIA","TOMA DI LANZO","CAROTE AL FORNO","FRUTTA/PANE"],"Martedì":["PASSATO DI VERDURA CON ORZO","SOVRACOSCIA DI POLLO AL FORNO","PUREA DI PATATE","FRUTTA/PANE"],"Mercoledì":["TAGLIATELLE AL POMODORO","SVIZZERINA DI VITELLO AGLI AROMI","INSALATA DI CAVOLO VERZA","FRUTTA/PANE INTEGRALE"],"Giovedì":["RISOTTO ALLA PARMIGIANA","FRITTATA DI CAVOLFIORE","BIETE LESSE AL LIMONE","BUDINO CRÈME CARAMEL/PANE"],"Venerdì":["PASTA OLIO E PANGRATTATO","BASTONCINI DI PESCE AL FORNO BROCCOLI SALTATI","FRUTTA/PANE"]},"5":{"Lunedì":["PASTA AL POMODORO E RICOTTA SALSICCIA AL FORNO","FAGIOLINI SALTATI","FRUTTA/PANE"],"Martedì":["CREMA DI PISELLI CON CROSTINI","SPEZZATINO DI TACCHINO","CAROTE AL FORNO","FRUTTA/PANE"],"Mercoledì":["PASTA PASTICCIATA","½ STRACCHINO","SPINACI AL LIMONE","YOGURT ALLA FRUTTA/PANE INTEGRALE"],"Giovedì":["VELLUTATA DI CAROTE E PATATE CON FARRO","HALIBUT AL FORNO","PATATE ALL’OLIO PREZZEMOLATE","MACEDONIA DI FRUTTA/PANE"],"Venerdì":["RISOTTO AL RADICCHIO","UOVO SODO","INSALATA DI FINOCCHI","FRUTTA/PANE"]},"6":{"Lunedì":["GNOCCHI AL POMODORO","SOVRACOSCE DI POLLO AL FORNO","MACEDONIA DI VERDURA","FRUTTA/PANE"],"Martedì":["PASSATO DI VERDURA CON RISO","HAMBURGER DI BOVINO","INSALATA DI FAGIOLINI","FRUTTA/PANE"],"Mercoledì":["ORECCHIETTE AI BROCCOLI","GATEAU DI PATATE E FONTAL","CAROTE SALTATE","FRUTTA/PANE INTEGRALE"],"Giovedì":["RISOTTO ALLA ZUCCA","BRA/RASCHERA","TRIS DI VERDURE (CAVOLFIORI/BROCCOLI/CAROTE)","PASTA DI MELIGA/PANE"],"Venerdì":["PASTA E FAGIOLI","(PASSATO PER MATERNE)","PLATESSA AL FORNO","INSALATA VERDE","FRUTTA/PANE"]},"7":{"Lunedì":["PIZZA AL POMODORO","MOZZARELLA","FINOCCHI AL FORNO","FRUTTA/PANE"],"Martedì":["TORTELLINI IN BRODO VEGETALE","MILANESE DI TACCHINO","PISELLINI E CAROTE AROMATICHE","FRUTTA/PANE"],"Mercoledì":["RISO AL SUGO DI SALSICCIA","FRITTATA DI ERBETTE","INSALATA DI CAVOLO VERZA","YOGURT ALLA FRUTTA/PANE INTEGRALE"],"Giovedì":["PASTA INTEGRALE AL POMODORO E OLIVE","POLPETTINE DI BOVINO","INSALATA VERDE","FRUTTA/PANE"],"Venerdì":["PASSATO DI CECI CON CROSTINI","BASTONCINI DI PESCE","PUREA DI PATATE","FRUTTA/PANE"]},"8":{"Lunedì":["PASTA PESTO E POMODORO","ROBIOLA","CAROTE BRASATE","FRUTTA/PANE"],"Martedì":["CREMA DI ZUCCA E CAROTE CON RISO","FESA DI TACCHINO AL FORNO","PATATE ARROSTO","FRUTTA/PANE"],"Mercoledì":["RISOTTO ALLA MILANESE","FLAN DI VERDURE E FORMAGGIO","INSALATA DI FINOCCHI","BUDINO ALLA VANIGLIA/PANE INTEGRALE"],"Giovedì":["TAGLIATELLE AL POMODORO","MERLUZZO INFARINATO AL FORNO","TRIS DI VERDURE (CAVOLFIORI/BROCCOLI/CAROTE)","FRUTTA/PANE"],"Venerdì":["PASTINA IN BRODO VEGETALE CASTELLANA AL FORNO","SPINACI SALTATI","FRUTTA/PANE"]}}};
+
+const APP_START = '2026-09-14';
+const APP_END = '2027-06-30';
+
+const SPECIAL_MENUS = {
+  /* Da compilare quando saranno definiti i menù speciali.
+     Esempio:
+     "2026-12-18": { nome: "Menù di Natale", piatti: ["Antipasto...", "Primo...", "Secondo...", "Frutta/pane"] }
+  */
 };
 
-/* ======================= DATI: MENÙ INVERNALE (8 settimane) ======================= */
-const MENU_INVERNALE = {
-  1: {
-    "Lunedì":    ["Vellutata di zucca con crostini","Sovracoscia di pollo arrosto","Patate lesse all'olio profumato","Frutta / pane"],
-    "Martedì":   ["Risotto alla milanese","Crescenza","Fagiolini aromatizzati caldi","Frutta / pane"],
-    "Mercoledì": ["Pasta in bianco (aglio e olio per le medie)","Arrosto di lonza","Insalata verde","Yogurt alla frutta / pane integrale"],
-    "Giovedì":   ["Pasta integrale al pomodoro","Platessa al forno","Carote al forno","Macedonia di frutta / pane"],
-    "Venerdì":   ["Pasta con pesto di broccoli","Frittata di spinaci","Insalata di verza","Frutta / pane"]
-  },
-  2: {
-    "Lunedì":    ["Gnocchi al pomodoro (pastina in brodo per le materne)","Mozzarella","Insalata mista (verde e carote)","Frutta / pane"],
-    "Martedì":   ["Passato di ceci e rosmarino con pasta","Salsiccia","Purea","Frutta / pane"],
-    "Mercoledì": ["Piatto unico: polenta e bocconcini di tacchino in umido","Insalata di finocchi","Frutta / pane integrale"],
-    "Giovedì":   ["Risotto al pomodoro","Frittata alla parmigiana","Spinaci al parmigiano","Budino al cioccolato / pane"],
-    "Venerdì":   ["Pastina all'uovo in brodo con verdure passate","Halibut al forno","Piselli","Frutta / pane"]
-  },
-  3: {
-    "Lunedì":    ["Pizza al pomodoro","Mozzarella","Spinaci saltati","Frutta / pane"],
-    "Martedì":   ["Vellutata di porri e patate con crostini","Polpette di bovino in umido","Insalata verde","Frutta / pane"],
-    "Mercoledì": ["Pasta al pomodoro","Platessa dorata","Tris di verdure (cavolfiori / broccoli / carote)","Frutta / pane integrale"],
-    "Giovedì":   ["Ravioli ricotta e spinaci","Scaloppine di pollo al forno","Fagiolini all'olio","Torcetti / pane"],
-    "Venerdì":   ["Passato di legumi con riso","Frittata alla parmigiana","Insalata verde e radicchio","Frutta / pane"]
-  },
-  4: {
-    "Lunedì":    ["Pasta al burro e salvia","Toma di Lanzo","Carote al forno","Frutta / pane"],
-    "Martedì":   ["Passato di verdura con orzo","Sovracoscia di pollo al forno","Purea di patate","Frutta / pane"],
-    "Mercoledì": ["Tagliatelle al pomodoro","Svizzerina di vitello agli aromi","Insalata di cavolo verza","Frutta / pane integrale"],
-    "Giovedì":   ["Risotto alla parmigiana","Frittata di cavolfiore","Biete lesse al limone","Budino crème caramel / pane"],
-    "Venerdì":   ["Pasta olio e pangrattato","Bastoncini di pesce al forno","Broccoli saltati","Frutta / pane"]
-  },
-  5: {
-    "Lunedì":    ["Pasta al pomodoro e ricotta","Salsiccia al forno","Fagiolini saltati","Frutta / pane"],
-    "Martedì":   ["Crema di piselli con crostini","Spezzatino di tacchino","Carote al forno","Frutta / pane"],
-    "Mercoledì": ["Pasta pasticciata","Mezzo stracchino","Spinaci al limone","Yogurt alla frutta / pane integrale"],
-    "Giovedì":   ["Vellutata di carote e patate con farro","Halibut al forno","Patate all'olio prezzemolate","Macedonia di frutta / pane"],
-    "Venerdì":   ["Risotto al radicchio","Uovo sodo","Insalata di finocchi","Frutta / pane"]
-  },
-  6: {
-    "Lunedì":    ["Gnocchi al pomodoro","Sovracosce di pollo al forno","Macedonia di verdura","Frutta / pane"],
-    "Martedì":   ["Passato di verdura con riso","Hamburger di bovino","Insalata di fagiolini","Frutta / pane"],
-    "Mercoledì": ["Orecchiette ai broccoli","Gateau di patate e fontal","Carote saltate","Frutta / pane integrale"],
-    "Giovedì":   ["Risotto alla zucca","Bra / raschera","Tris di verdure (cavolfiori / broccoli / carote)","Pasta di meliga / pane"],
-    "Venerdì":   ["Pasta e fagioli (passato per le materne)","Platessa al forno","Insalata verde","Frutta / pane"]
-  },
-  7: {
-    "Lunedì":    ["Pizza al pomodoro","Mozzarella","Finocchi al forno","Frutta / pane"],
-    "Martedì":   ["Tortellini in brodo vegetale","Milanese di tacchino","Piselli e carote aromatiche","Frutta / pane"],
-    "Mercoledì": ["Riso al sugo di salsiccia","Frittata di erbette","Insalata di cavolo verza","Yogurt alla frutta / pane integrale"],
-    "Giovedì":   ["Pasta integrale al pomodoro e olive","Polpettine di bovino","Insalata verde","Frutta / pane"],
-    "Venerdì":   ["Passato di ceci con crostini","Bastoncini di pesce","Purea di patate","Frutta / pane"]
-  },
-  8: {
-    "Lunedì":    ["Pasta pesto e pomodoro","Robiola","Carote brasate","Frutta / pane"],
-    "Martedì":   ["Crema di zucca e carote con riso","Fesa di tacchino al forno","Patate arrosto","Frutta / pane"],
-    "Mercoledì": ["Risotto alla milanese","Flan di verdure e formaggio","Insalata di finocchi","Budino alla vaniglia / pane integrale"],
-    "Giovedì":   ["Tagliatelle al pomodoro","Merluzzo infarinato al forno","Tris di verdure (cavolfiori / broccoli / carote)","Frutta / pane"],
-    "Venerdì":   ["Pastina in brodo vegetale","Castellana al forno","Spinaci saltati","Frutta / pane"]
-  }
+const WEEK_LABELS_ESTIVO = ['', 'Prima', 'Seconda', 'Terza', 'Quarta'];
+const WEEK_LABELS_INVERNALE = ['', 'Prima', 'Seconda', 'Terza', 'Quarta', 'Quinta', 'Sesta', 'Settima', 'Ottava'];
+
+const HOLIDAY_LABELS = {
+  'weekend': 'Fine settimana',
+  'SANTI': 'Festa di Ognissanti',
+  'SAN FRANCESCO': 'San Francesco, Patrono di Ciriè',
+  'IMMACOLATA': 'Immacolata Concezione',
+  'sospensione lezioni': 'Sospensione delle lezioni',
+  'vacanze natalizie': 'Vacanze di Natale',
+  'NATALE': 'Natale',
+  'S.STEFANO': 'Santo Stefano',
+  'CAPODANNO': 'Capodanno',
+  'EPIFANIA': 'Epifania',
+  'vacanze carnevale': 'Vacanze di Carnevale',
+  'vacanze pasquali': 'Vacanze di Pasqua',
+  'SANTA PASQUA': 'Pasqua',
+  "LUNEDÌ DELL'ANGELO": "Lunedì dell'Angelo",
+  'FESTA DELLA LIBERAZIONE': 'Festa della Liberazione',
+  'FESTA DEL LAVORO': 'Festa del Lavoro',
+  'FESTA DELLA REPUBBLICA': 'Festa della Repubblica'
 };
 
-/* ======================= DATI: MENÙ SPECIALI =======================
-   Da compilare quando disponibili, formato:
-   { data: "AAAA-MM-GG", tipologia: "Nome del menù speciale", corsi: ["voce 1","voce 2", ...] }
-   Un menù speciale in questo elenco sostituisce il menù ordinario per quella data. */
-const MENU_SPECIALI = [
-  // Esempio (rimuovere il commento e compilare quando necessario):
-  // { data: "2026-12-08", tipologia: "Menù di Natale", corsi: ["Lasagne al forno","Arrosto","Insalata verde","Panettoncino"] }
-];
+const MONTHS_IT = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 
-/* ======================= CALENDARIO: giorni feriali senza mensa ======================= */
-const HOLIDAYS = {
-  "2026-12-07": "Sospensione lezioni (ponte)",
-  "2026-12-08": "Immacolata",
-  "2026-12-23": "Vacanze natalizie",
-  "2026-12-24": "Vacanze natalizie",
-  "2026-12-25": "Natale",
-  "2026-12-28": "Vacanze natalizie",
-  "2026-12-29": "Vacanze natalizie",
-  "2026-12-30": "Vacanze natalizie",
-  "2026-12-31": "Vacanze natalizie",
-  "2027-01-01": "Capodanno",
-  "2027-01-04": "Vacanze natalizie",
-  "2027-01-05": "Vacanze natalizie",
-  "2027-01-06": "Epifania",
-  "2027-02-08": "Vacanze di carnevale",
-  "2027-02-09": "Vacanze di carnevale",
-  "2027-02-10": "Vacanze di carnevale",
-  "2027-03-25": "Vacanze pasquali",
-  "2027-03-26": "Vacanze pasquali",
-  "2027-03-29": "Lunedì dell'Angelo",
-  "2027-03-30": "Vacanze pasquali",
-  "2027-06-02": "Festa della Repubblica"
-};
-
-/* ======================= PERIODI ======================= */
-const PERIODS = [
-  { tipo: "estivo",     inizio: "2026-09-14", fine: "2026-11-01", cicloSettimane: 4, menu: MENU_ESTIVO },
-  { tipo: "invernale",  inizio: "2026-11-02", fine: "2027-03-30", cicloSettimane: 8, menu: MENU_INVERNALE },
-  { tipo: "estivo",     inizio: "2027-03-31", fine: "2027-06-30", cicloSettimane: 4, menu: MENU_ESTIVO }
-];
-
-const APP_START = "2026-09-14";
-const APP_END   = "2027-06-30";
-
-const GIORNI_SETT = ["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"];
-const MESI = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
-const ORDINALI = ["","Prima","Seconda","Terza","Quarta","Quinta","Sesta","Settima","Ottava","Nona","Decima"];
-
-/* ======================= UTILITY DATE ======================= */
-function parseISO(str){
-  const [y,m,d] = str.split("-").map(Number);
+function toISO(d){
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function fromISO(s){
+  const [y,m,d] = s.split('-').map(Number);
   return new Date(y, m-1, d);
 }
-function toISO(date){
-  const y = date.getFullYear();
-  const m = String(date.getMonth()+1).padStart(2,"0");
-  const d = String(date.getDate()).padStart(2,"0");
-  return `${y}-${m}-${d}`;
+function formatDateLong(d){
+  return `${d.getDate()} ${MONTHS_IT[d.getMonth()]} ${d.getFullYear()}`;
 }
-function isWeekday(date){
-  const d = date.getDay();
-  return d >= 1 && d <= 5;
-}
-function addDays(date, n){
-  const nd = new Date(date);
-  nd.setDate(nd.getDate()+n);
-  return nd;
-}
-function countWeekdaysInclusive(start, end){
-  let count = 0;
-  let d = new Date(start);
-  while(d <= end){
-    if(isWeekday(d)) count++;
-    d = addDays(d, 1);
-  }
-  return count;
-}
-function getMonday(date){
-  // Restituisce il lunedì (00:00) della settimana di calendario che contiene "date".
-  const d = new Date(date);
-  const day = d.getDay(); // 0 dom .. 6 sab
-  const diff = day === 0 ? -6 : (1 - day);
-  return addDays(d, diff);
-}
-function weeksBetweenMondays(monday1, monday2){
-  const MS_DAY = 24*60*60*1000;
-  return Math.round((monday2 - monday1) / (7*MS_DAY));
-}
-function findPeriod(date){
-  const iso = toISO(date);
-  return PERIODS.find(p => iso >= p.inizio && iso <= p.fine) || null;
+function isoMondayOfWeek(d){
+  const day = d.getDay(); // 0=sun..6=sat
+  const diff = (day === 0 ? -6 : 1 - day);
+  const monday = new Date(d);
+  monday.setDate(d.getDate() + diff);
+  return monday;
 }
 
-/* ======================= LOGICA MENÙ ======================= */
-function getMenuInfo(date){
-  const iso = toISO(date);
-
-  // Menù speciale: priorità assoluta
-  const speciale = MENU_SPECIALI.find(m => m.data === iso);
-  if(speciale){
-    return { stato:"speciale", tipologia: speciale.tipologia, corsi: speciale.corsi, iso };
+function getDayInfo(iso){
+  // 1) menù speciale ha sempre precedenza
+  if (SPECIAL_MENUS[iso]) {
+    const sp = SPECIAL_MENUS[iso];
+    return { status: 'speciale', weekdayIT: fromISOWeekday(iso), nome: sp.nome, piatti: sp.piatti };
   }
-
-  if(iso < APP_START){
-    return { stato:"prima-inizio", iso };
+  // 2) fuori periodo di funzionamento dell'applicazione
+  if (iso < APP_START || iso > APP_END) {
+    return { status: 'fuori-periodo' };
   }
-  if(iso > APP_END){
-    return { stato:"dopo-fine", iso };
+  // 3) tabella calcolata da calendario scolastico + rotazione menù
+  const entry = MENU_TABLE[iso];
+  if (!entry) return { status: 'fuori-periodo' };
+  if (!entry.isOpen) {
+    return { status: 'chiuso', weekdayIT: entry.weekdayIT, note: entry.note };
   }
-  if(!isWeekday(date)){
-    return { stato:"weekend", iso };
-  }
-  if(HOLIDAYS[iso]){
-    return { stato:"festivo", nota: HOLIDAYS[iso], iso };
-  }
-
-  const periodo = findPeriod(date);
-  if(!periodo){
-    return { stato:"fuori-periodo", iso };
-  }
-
-  const inizioPeriodo = parseISO(periodo.inizio);
-  const mondayRiferimento = getMonday(inizioPeriodo);
-  const mondayData = getMonday(date);
-  const weeksDiff = weeksBetweenMondays(mondayRiferimento, mondayData);
-  const settimanaIndex = ((weeksDiff % periodo.cicloSettimane) + periodo.cicloSettimane) % periodo.cicloSettimane;
-  const settimana = settimanaIndex + 1;
-  const giorno = GIORNI_SETT[date.getDay()];
-  const corsi = periodo.menu[settimana] ? periodo.menu[settimana][giorno] : null;
-
+  const piatti = MENU_DATA[entry.season][String(entry.week)][entry.menuGiorno];
   return {
-    stato: "ok",
-    tipo: periodo.tipo,
-    settimana,
-    settimanaLabel: ORDINALI[settimana] || settimana,
-    giorno,
-    corsi,
-    iso
+    status: 'aperto',
+    weekdayIT: entry.weekdayIT,
+    season: entry.season,
+    week: entry.week,
+    menuGiorno: entry.menuGiorno,
+    piatti
   };
 }
 
-function findAdjacentSchoolDay(date, direction){
-  let d = addDays(date, direction);
-  let guard = 0;
-  while(guard < 730){
-    const iso = toISO(d);
-    if(iso >= APP_START && iso <= APP_END){
-      const hasSpeciale = MENU_SPECIALI.some(m => m.data === iso);
-      if(hasSpeciale || (isWeekday(d) && !HOLIDAYS[iso])){
-        return d;
-      }
+function fromISOWeekday(iso){
+  const d = fromISO(iso);
+  const names = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+  return names[d.getDay()];
+}
+
+/* ====== RENDER ====== */
+const tabEl = document.getElementById('tab');
+const tabLabelEl = document.getElementById('tabLabel');
+const cardEl = document.getElementById('card');
+const dateInput = document.getElementById('dateInput');
+const weekStripEl = document.getElementById('weekStrip');
+
+function seasonClass(status, season){
+  if (status === 'speciale') return 'season-speciale';
+  if (status === 'aperto' && season === 'estivo') return 'season-estivo';
+  if (status === 'aperto' && season === 'invernale') return 'season-invernale';
+  return 'season-closed';
+}
+
+function render(iso){
+  const info = getDayInfo(iso);
+  const d = fromISO(iso);
+  const wrap = document.querySelector('.card-wrap');
+  const sClass = seasonClass(info.status, info.season);
+  wrap.className = 'card-wrap ' + sClass;
+  document.body.className = sClass;
+
+  if (info.status === 'aperto' || info.status === 'speciale'){
+    const isSpeciale = info.status === 'speciale';
+    const seasonLabel = isSpeciale ? 'Speciale' : (info.season === 'estivo' ? 'Estivo' : 'Invernale');
+    tabLabelEl.textContent = seasonLabel;
+
+    let weekBadge = '';
+    if (!isSpeciale){
+      const labels = info.season === 'estivo' ? WEEK_LABELS_ESTIVO : WEEK_LABELS_INVERNALE;
+      weekBadge = `<span class="week-badge">${labels[info.week]} settimana</span>`;
     }
-    if(iso < "2026-08-01" || iso > "2027-08-01") break;
-    d = addDays(d, direction);
-    guard++;
-  }
-  return null;
-}
 
-/* ======================= RENDER ======================= */
-const datePicker = document.getElementById("datePicker");
-const dateBig = document.getElementById("dateBig");
-const dateSmall = document.getElementById("dateSmall");
-const badgesRow = document.getElementById("badgesRow");
-const boardBody = document.getElementById("boardBody");
-const weekStrip = document.getElementById("weekStrip");
-const btnPrev = document.getElementById("btnPrev");
-const btnNext = document.getElementById("btnNext");
-const btnToday = document.getElementById("btnToday");
+    const piatti = info.piatti || [];
+    const dishesHTML = piatti.map((p,i) => {
+      const isLast = i === piatti.length - 1 && /frutta|pane/i.test(p);
+      return `<li class="${isLast ? 'last' : ''}">${escapeHTML(p)}</li>`;
+    }).join('');
 
-function todayDate(){
-  const n = new Date();
-  return new Date(n.getFullYear(), n.getMonth(), n.getDate());
-}
-
-function formatDateBig(date){
-  const giorno = GIORNI_SETT[date.getDay()];
-  const g = date.getDate();
-  const mese = MESI[date.getMonth()];
-  const anno = date.getFullYear();
-  return { line: `${giorno} ${g} ${mese}`, year: anno };
-}
-
-function renderBadges(info){
-  badgesRow.innerHTML = "";
-  const add = (cls, text) => {
-    const span = document.createElement("span");
-    span.className = "badge " + cls;
-    span.textContent = text;
-    badgesRow.appendChild(span);
-  };
-  if(info.stato === "ok"){
-    add(info.tipo, info.tipo === "estivo" ? "Menù estivo" : "Menù invernale");
-    add("week", `Settimana ${info.settimanaLabel}`);
-  } else if(info.stato === "speciale"){
-    add("speciale", "Menù speciale");
-  } else if(info.stato === "weekend" || info.stato === "festivo" || info.stato === "prima-inizio" || info.stato === "dopo-fine"){
-    add("off", "Nessuna mensa");
-  }
-}
-
-function renderBody(info){
-  boardBody.innerHTML = "";
-
-  if(info.stato === "ok" && info.corsi){
-    const ul = document.createElement("ul");
-    ul.className = "courses" + (info.tipo === "invernale" ? " invernale-dot" : "");
-    info.corsi.forEach(voce => {
-      const li = document.createElement("li");
-      const dot = document.createElement("span");
-      dot.className = "dot";
-      const txt = document.createElement("span");
-      txt.textContent = voce;
-      li.appendChild(dot);
-      li.appendChild(txt);
-      ul.appendChild(li);
-    });
-    boardBody.appendChild(ul);
-    return;
+    cardEl.innerHTML = `
+      <div class="meta-row">
+        <span class="badge">${seasonLabel}</span>
+        ${weekBadge}
+      </div>
+      <p class="date-line"><span class="wd">${info.weekdayIT}</span>${formatDateLong(d)}</p>
+      <hr class="divider">
+      <ul class="dishes">${dishesHTML}</ul>
+    `;
+  } else if (info.status === 'chiuso'){
+    tabLabelEl.textContent = 'Chiuso';
+    const label = HOLIDAY_LABELS[info.note] || info.note || 'Giorno non scolastico';
+    cardEl.innerHTML = `
+      <div class="meta-row">
+        <span class="badge" style="background:var(--closed-soft); color:var(--ink-soft);">Nessun servizio</span>
+      </div>
+      <p class="date-line"><span class="wd">${info.weekdayIT}</span>${formatDateLong(d)}</p>
+      <hr class="divider">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="M9 16l6 -6M15 16l-6 -6"></path></svg>
+        <div>
+          <p class="empty-title">Mensa non attiva</p>
+          <p class="empty-text">${escapeHTML(label)}. Non è previsto il servizio di refezione scolastica in questa data.</p>
+        </div>
+      </div>
+    `;
+  } else {
+    tabLabelEl.textContent = 'Fuori periodo';
+    const startD = fromISO(APP_START), endD = fromISO(APP_END);
+    cardEl.innerHTML = `
+      <div class="meta-row">
+        <span class="badge" style="background:var(--closed-soft); color:var(--ink-soft);">Fuori periodo</span>
+      </div>
+      <p class="date-line"><span class="wd">${fromISOWeekday(iso)}</span>${formatDateLong(d)}</p>
+      <hr class="divider">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v4l2.5 2.5"></path></svg>
+        <div>
+          <p class="empty-title">Data fuori dal calendario scolastico</p>
+          <p class="empty-text">Il menù del giorno è disponibile dal ${formatDateLong(startD)} al ${formatDateLong(endD)}.</p>
+        </div>
+      </div>
+    `;
   }
 
-  if(info.stato === "speciale"){
-    const ul = document.createElement("ul");
-    ul.className = "courses speciale-dot";
-    (info.corsi || []).forEach(voce => {
-      const li = document.createElement("li");
-      const dot = document.createElement("span");
-      dot.className = "dot";
-      const txt = document.createElement("span");
-      txt.textContent = voce;
-      li.appendChild(dot);
-      li.appendChild(txt);
-      ul.appendChild(li);
-    });
-    const p = document.createElement("p");
-    p.style.marginTop = "10px";
-    p.style.color = "var(--ink-soft)";
-    p.style.fontSize = "13px";
-    p.textContent = info.tipologia;
-    boardBody.appendChild(ul);
-    boardBody.appendChild(p);
-    return;
-  }
-
-  const empty = document.createElement("div");
-  empty.className = "empty-state";
-  let headline = "", sub = "", showJump = null;
-
-  switch(info.stato){
-    case "weekend":
-      headline = "Nessun servizio mensa";
-      sub = "Il sabato e la domenica non è previsto alcun menù.";
-      break;
-    case "festivo":
-      headline = "Nessun servizio mensa";
-      sub = `Giorno di vacanza / festività: ${info.nota}.`;
-      break;
-    case "prima-inizio":
-      headline = "Anno scolastico non ancora iniziato";
-      sub = "Le lezioni e il servizio mensa iniziano lunedì 14 settembre 2026.";
-      showJump = APP_START;
-      break;
-    case "dopo-fine":
-      headline = "Applicazione terminata";
-      sub = "Il periodo coperto da questa applicazione termina il 30 giugno 2027.";
-      break;
-    default:
-      headline = "Menù non disponibile";
-      sub = "Non è stato possibile determinare il menù per questa data.";
-  }
-
-  const h = document.createElement("div");
-  h.className = "headline";
-  h.textContent = headline;
-  const s = document.createElement("div");
-  s.textContent = sub;
-  empty.appendChild(h);
-  empty.appendChild(s);
-
-  if(showJump){
-    const btn = document.createElement("button");
-    btn.className = "action";
-    btn.type = "button";
-    btn.textContent = "Vai al primo giorno di scuola →";
-    btn.addEventListener("click", () => setDate(parseISO(showJump)));
-    empty.appendChild(btn);
-  }
-
-  boardBody.appendChild(empty);
+  renderWeekStrip(iso);
+  dateInput.value = iso;
 }
 
-function renderWeekStrip(date){
-  weekStrip.innerHTML = "";
-  // Trova il lunedì della settimana corrente
-  const dow = date.getDay(); // 0 dom .. 6 sab
-  const offsetToMonday = dow === 0 ? -6 : (1 - dow);
-  const monday = addDays(date, offsetToMonday);
-  const shortLbl = ["Lun","Mar","Mer","Gio","Ven"];
-
-  for(let i=0;i<5;i++){
-    const d = addDays(monday, i);
-    const iso = toISO(d);
-    const cell = document.createElement("div");
-    cell.className = "day";
-    if(iso === toISO(date)) cell.classList.add("active");
-    if(HOLIDAYS[iso] || iso < APP_START || iso > APP_END) cell.classList.add("holiday");
-
-    const lbl = document.createElement("span");
-    lbl.className = "lbl";
-    lbl.textContent = shortLbl[i];
-    const num = document.createElement("span");
-    num.className = "num";
-    num.textContent = d.getDate();
-
-    cell.appendChild(lbl);
-    cell.appendChild(num);
-    cell.addEventListener("click", () => setDate(d));
-    weekStrip.appendChild(cell);
+function renderWeekStrip(iso){
+  const d = fromISO(iso);
+  const monday = isoMondayOfWeek(d);
+  const todayISO = toISO(new Date());
+  const labels = ['L','M','M','G','V'];
+  let html = '';
+  for (let i=0;i<5;i++){
+    const day = new Date(monday);
+    day.setDate(monday.getDate()+i);
+    const dayISO = toISO(day);
+    const info = getDayInfo(dayISO);
+    let cls = 'wd-closed';
+    if (info.status === 'speciale') cls = 'wd-speciale';
+    else if (info.status === 'aperto') cls = info.season === 'estivo' ? 'wd-estivo' : 'wd-invernale';
+    const isActive = dayISO === iso ? 'active' : '';
+    const isToday = dayISO === todayISO ? 'today' : '';
+    html += `<button type="button" class="${cls} ${isActive} ${isToday}" data-date="${dayISO}" aria-label="${info.weekdayIT || labels[i]} ${day.getDate()}">
+      <span class="wlabel">${labels[i]}</span>
+      <span class="wnum">${day.getDate()}</span>
+      <span class="wdot"></span>
+    </button>`;
   }
+  weekStripEl.innerHTML = html;
+  weekStripEl.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => render(btn.dataset.date));
+  });
 }
 
-function updateNavButtons(date){
-  const prev = findAdjacentSchoolDay(date, -1);
-  const next = findAdjacentSchoolDay(date, 1);
-  btnPrev.disabled = !prev;
-  btnNext.disabled = !next;
-  btnPrev.dataset.target = prev ? toISO(prev) : "";
-  btnNext.dataset.target = next ? toISO(next) : "";
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-let currentDate = null;
-
-function setDate(date){
-  currentDate = date;
-  datePicker.value = toISO(date);
-  const info = getMenuInfo(date);
-  const { line, year } = formatDateBig(date);
-  dateBig.innerHTML = `${line}<small>${year}</small>`;
-  renderBadges(info);
-  renderBody(info);
-  renderWeekStrip(date);
-  updateNavButtons(date);
-}
-
-btnToday.addEventListener("click", () => setDate(todayDate()));
-btnPrev.addEventListener("click", () => {
-  if(btnPrev.dataset.target) setDate(parseISO(btnPrev.dataset.target));
+/* ====== EVENTI ====== */
+dateInput.addEventListener('change', () => {
+  if (dateInput.value) render(dateInput.value);
 });
-btnNext.addEventListener("click", () => {
-  if(btnNext.dataset.target) setDate(parseISO(btnNext.dataset.target));
+document.getElementById('prevBtn').addEventListener('click', () => {
+  const d = fromISO(dateInput.value || toISO(new Date()));
+  d.setDate(d.getDate()-1);
+  render(toISO(d));
 });
-datePicker.addEventListener("change", () => {
-  if(datePicker.value) setDate(parseISO(datePicker.value));
+document.getElementById('nextBtn').addEventListener('click', () => {
+  const d = fromISO(dateInput.value || toISO(new Date()));
+  d.setDate(d.getDate()+1);
+  render(toISO(d));
+});
+document.getElementById('todayBtn').addEventListener('click', () => {
+  render(toISO(new Date()));
 });
 
-setDate(todayDate());
+/* ====== AVVIO ====== */
+render(toISO(new Date()));
+
 </script>
 </body>
 </html>
